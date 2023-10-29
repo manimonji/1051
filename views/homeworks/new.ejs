@@ -1,7 +1,21 @@
 <h1>کار نو</h1>
 <form action="/homeworks" method="POST">
-    <label for="date">هنگامه</label>
-    <input type="date" name="date">
+    <select name="month" id="">
+        <option value="0">فروردین</option>
+        <option value="1">اردیبهشت</option>
+        <option value="2">خرداد</option>
+        <option value="3">تیر</option>
+        <option value="4">مرداد</option>
+        <option value="5">شهریور</option>
+        <option value="6">مهر</option>
+        <option value="7">آبان</option>
+        <option value="8">آذر</option>
+        <option value="9">دی</option>
+        <option value="10">بهمن</option>
+        <option value="11">اسفند</option>
+    </select>
+    <input type="number" name="day" min="1" max="31">
     <label for="description">بازنمود</label>
     <input type="text" name="description">
+    <button type="submit">ثبت</button>
 </form>

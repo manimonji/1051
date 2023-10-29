@@ -1,12 +1,29 @@
 const express = require("express");
 const router = express.Router();
 
+const Homework = require("../models/homework");
+
 router.route("/")
-    .get((req, res) => {
-        res.send("تکالیف");
+    .get(async (req, res) => {
+        // const homeworks = {};
+        // (await Homework.find({})).forEach((homework) => {
+        //     if (!homeworks[`${homework.month}-${homework.day}`]) {
+        //         homeworks[`${homework.month}-${homework.day}`] = []
+        //     }
+        //     homeworks[`${homework.month}-${homework.day}`].push(homework.description);
+        // });
+        res.render("homeworks/index", {homeworks: await Homework.getHomeworks()});
+        // console.log(new Date().toLocaleDateString('fa-IR'));
     })
-    .post((req, res) => {
-        res.send(req.body.description);
+    .post(async (req, res) => {
+        const homework = new Homework(req.body);
+        try {
+            const newHomework = await homework.save();
+            console.log(newHomework);
+            res.redirect("/homeworks");
+        } catch(err) {
+            console.log(err);
+        }
     });
 
 router.get("/new", (req, res) => {

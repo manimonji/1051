@@ -1,0 +1,10 @@
+<h2>کار ها</h2>
+<% if (locals.homeworks && homeworks != []) { %>
+    <% for(const [monthAndDay , homeworksInDay] of Object.entries(homeworks)) { %>
+        <div><%= monthAndDay  %></div>
+        <% homeworksInDay.forEach(homework => { %>
+            <%= homework %>
+        <% });  %>
+        <br>
+    <% } %>
+<% } %>  
