@@ -21,13 +21,14 @@ const homeworkSchema = new mongoose.Schema({
             let homeworksObject = {};
             let homeworksPromise = new Promise((resolve) => {
                 this.find().sort({ month: 1, day: 1 }).then(homeworks => {
-                    homeworks.forEach((homework) => {
+                    homeworks.forEach(({ month, day, description }) => {
                         const persianMonths = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
-                        let dateString = `${homework.day} ${persianMonths[homework.month]}`;
+                        const isTomorrow = Number(`${month + 1}${day}`) - new Date().toLocaleString("fa-IR", {month: "numeric", day: "numeric"}).replace("/", "").replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)) == 1;
+                        let dateString = `${isTomorrow ? "فردا،" : ""} ${day} ${persianMonths[month]}`;
                         if (!homeworksObject[dateString]) {
                             homeworksObject[dateString] = [];
                         }
-                        homeworksObject[dateString].push(homework.description);
+                        homeworksObject[dateString].push(description);
                     });
                     resolve(homeworksObject);
                 })

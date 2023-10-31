@@ -1,10 +1,14 @@
-<h2>کار ها</h2>
+<h1>کار ها</h1>
 <% if (locals.homeworks && homeworks != []) { %>
-    <% for(const [monthAndDay , homeworksInDay] of Object.entries(homeworks)) { %>
-        <div><%= monthAndDay  %></div>
-        <% homeworksInDay.forEach(homework => { %>
-            <%= homework %>
-        <% });  %>
-        <br>
+    <% for(const [dateString , homeworksInDay] of Object.entries(homeworks)) { %>
+        <div class="splitter"><%= dateString  %></div>
+        <div class="homeworks">
+            <% homeworksInDay.forEach((homework, i) => { %>
+                <div class="homework">
+                    <div class="number"><span><%= i + 1 %></span></div>
+                    <%= homework %>
+                </div>
+            <% });  %>
+        </div>
     <% } %>
 <% } %>  

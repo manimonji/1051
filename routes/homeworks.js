@@ -5,15 +5,7 @@ const Homework = require("../models/homework");
 
 router.route("/")
     .get(async (req, res) => {
-        // const homeworks = {};
-        // (await Homework.find({})).forEach((homework) => {
-        //     if (!homeworks[`${homework.month}-${homework.day}`]) {
-        //         homeworks[`${homework.month}-${homework.day}`] = []
-        //     }
-        //     homeworks[`${homework.month}-${homework.day}`].push(homework.description);
-        // });
-        res.render("homeworks/index", {homeworks: await Homework.getHomeworks()});
-        // console.log(new Date().toLocaleDateString('fa-IR'));
+        res.render("homeworks/index", {homeworks: await Homework.getHomeworks(), cssFiles: ["/css/homeworks/index.css"]});
     })
     .post(async (req, res) => {
         const homework = new Homework(req.body);
