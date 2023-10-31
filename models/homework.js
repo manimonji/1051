@@ -23,7 +23,9 @@ const homeworkSchema = new mongoose.Schema({
                 this.find().sort({ month: 1, day: 1 }).then(homeworks => {
                     homeworks.forEach(({ month, day, description }) => {
                         const persianMonths = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
-                        const isTomorrow = Number(`${month + 1}${day}`) - new Date().toLocaleString("fa-IR", {month: "numeric", day: "numeric"}).replace("/", "").replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)) == 1;
+                        const currentMonth = Number(new Date().toLocaleString("fa-IR", {month: "numeric"}).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+                        const today = Number(new Date().toLocaleString("fa-IR", {day: "numeric"}).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+                        const isTomorrow = month == currentMonth && day - today == 1;
                         let dateString = `${isTomorrow ? "فردا،" : ""} ${day} ${persianMonths[month]}`;
                         if (!homeworksObject[dateString]) {
                             homeworksObject[dateString] = [];
